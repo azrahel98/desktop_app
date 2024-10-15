@@ -1,0 +1,196 @@
+// Importar funciones y variables de Bootstrap
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+
+// Tus personalizaciones
+$primary: #6200ff;
+$secondary: #a3aed0;
+$success: #01b574;
+$info: #3965ff;
+$warning: #ffb547;
+$danger: #ff4136;
+$light: #f4f7fe;
+$dark: #1b2559;
+
+// Colores de fondo
+$bg-white: #ffffff;
+$bg-light: #f4f7fe;
+$bg-dark: black;
+// Colores de texto
+$text-color: #2b3674;
+$text-light: #a3aed0;
+$text-dark: #000000;
+
+// Colores de borde
+$border-color: #e0e5f2;
+
+// Colores de estado
+$active: #4318ff;
+$inactive: #a3aed0;
+
+// Sombras
+$shadow-card: 0px 18px 40px rgba(112, 144, 176, 0.12);
+
+// Fuentes
+$font-family-base: 'DM Sans', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+$font-size-base: 0.875rem;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Bordes
+$border-radius: 0.5rem;
+$border-width: 1px;
+
+// Inputs
+$input-bg: $bg-white;
+$input-border-color: $border-color;
+$input-focus-border-color: $primary;
+$input-placeholder-color: $secondary;
+
+// Botones
+$btn-font-weight: $font-weight-medium;
+$btn-border-radius: $border-radius;
+
+// Cards
+$card-border-color: $border-color;
+$card-border-radius: $border-radius;
+$card-box-shadow: $shadow-card;
+
+// Actualizar el mapa de colores del tema
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light
+);
+$border-input: #e0e5f2;
+// Configuraciones personalizadas adicionales
+$input-border-color: $border-input;
+
+// Importar todo Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// Tus estilos personalizados adicionales
+.text-secondary {
+  color: $secondary !important;
+  font-weight: 400;
+  font-size: 0.82rem;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.03rem $primary;
+}
+
+.fs-4 {
+  font-size: 1rem !important;
+}
+
+.label {
+  font-size: 0.875rem;
+}
+
+.text-danger {
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: font-size 2s linear;
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  border-radius: 50%;
+  padding: 0px;
+  overflow: hidden;
+  background-color: $light;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-sm {
+  width: 32px;
+  height: 32px;
+  font-size: 0.875rem;
+}
+
+.avatar-md {
+  width: 48px;
+  height: 48px;
+  font-size: 1.25rem;
+}
+
+.avatar-lg {
+  width: 64px;
+  height: 64px;
+  font-size: 1.5rem;
+}
+
+.initials {
+  font-weight: bold;
+}
+
+.active {
+  border-right: 5px solid $primary;
+
+  p {
+    color: #2b3674 !important;
+    font-weight: bold !important;
+  }
+  .text-secondary {
+    color: #2b3674 !important;
+  }
+}
+.dropdown-menu {
+  overflow: hidden !important;
+}
+.dropdown-item {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+}
+.dropdown-item:hover {
+  background-color: $light;
+}
+
+.title{
+  font-family: $font-family-base;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #2B3674;
+}
+
+.bg-dark{
+  -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
+    background: rgba(21, 23, 26, 0.527);
+}
+
+p,
+h1,
+span,
+h2 {
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+// Asegúrate de que las variables personalizadas estén disponibles como variables CSS
+:root {
+  --bs-secondary-rgb: #{to-rgb($secondary)};
+}
+::-webkit-scrollbar {
+  width: 2px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: $secondary;
+  border-radius: 3px;
+ 
+}
