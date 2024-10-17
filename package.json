@@ -10,19 +10,19 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "vue": "^3.4.37",
-    "vue-router": "4",
+    "@popperjs/core": "^2.11.8",
     "@tabler/icons-vue": "^3.17.0",
-    "zod": "^3.23.8",
     "@tauri-apps/api": ">=2.0.0",
-    "pinia": "^2.2.2",
+    "@tauri-apps/plugin-shell": ">=2.0.0",
     "bootstrap": "^5.3.3",
     "date-fns": "^3.6.0",
-    "@popperjs/core": "^2.11.8",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "jwt-decode": "^4.0.0",
-    "@tauri-apps/plugin-shell": ">=2.0.0"
+    "pinia": "^2.2.2",
+    "vue": "^3.4.37",
+    "vue-router": "4",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",

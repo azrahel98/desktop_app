@@ -12,6 +12,10 @@
           <p class="text-secondary">Dashboard</p>
         </router-link>
 
+        <router-link :to="{ name: 'settings' }" class="d-flex">
+          <IconSettings size="22" class="text-secondary" />
+          <p class="text-secondary">test</p>
+        </router-link>
         <router-link :to="{ name: 'buscar' }" class="d-flex">
           <IconSearch size="22" class="text-secondary" />
           <p class="text-secondary">Buscar</p>
@@ -40,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { IconHomeFilled, IconListDetails, IconSearch } from '@tabler/icons-vue'
+import { IconHomeFilled, IconListDetails, IconSearch, IconSettings } from '@tabler/icons-vue'
 import { router } from '../router'
 import { userStore } from '@store/user'
 
@@ -54,6 +58,7 @@ defineProps({
 .side {
   width: 100%;
 }
+
 .sidebar {
   display: grid;
   grid-template-rows: auto 10vh;
@@ -63,6 +68,7 @@ defineProps({
   overflow-y: auto;
   width: 220px;
   transition: max-width 2.5 linear !important;
+
   @media only screen and (max-width: 1200px) {
     .side {
       display: none !important;
@@ -82,6 +88,7 @@ defineProps({
       font-weight: bolder;
       letter-spacing: 2px;
     }
+
     .d-flex {
       //top,rigth,bottom,left
       padding: 1vh 0 1vh 1.8vw;
@@ -90,6 +97,7 @@ defineProps({
       height: min-content;
       gap: 0.5vw;
       border-radius: 5px;
+
       p {
         padding: 0;
         margin: 0;
@@ -112,6 +120,7 @@ defineProps({
       font-weight: 700;
       font-size: 16px;
     }
+
     p:last-of-type {
       font-weight: 400;
       font-size: 0.74rem;

@@ -5,6 +5,8 @@ use tauri::{
     http::{HeaderMap, HeaderValue},
 };
 
+use crate::keys::NOTIONKEY;
+
 #[command]
 pub async fn fetch_notion(año: String, mes: String, dia: String) -> Result<String, String> {
     let client = reqwest::Client::new();
@@ -13,7 +15,7 @@ pub async fn fetch_notion(año: String, mes: String, dia: String) -> Result<Stri
     let mut headers = HeaderMap::new();
     headers.insert(
         "Authorization",
-        HeaderValue::from_static("Bearer secret_KE8PyouXrMKmYDig3lYIfg12g9ChzbKfYwQVTFTkTXP"),
+        HeaderValue::from_str(&format!("{}", NOTIONKEY)).unwrap(),
     );
     headers.insert("Notion-Version", HeaderValue::from_static("2022-06-28"));
     headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));

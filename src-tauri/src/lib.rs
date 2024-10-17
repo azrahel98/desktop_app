@@ -1,5 +1,6 @@
 mod employ;
 pub mod keys;
+mod legajo;
 mod notion;
 
 use serde::{Deserialize, Serialize};
@@ -11,6 +12,7 @@ use tokio::runtime::Runtime;
 use employ::employ::{actualizar_trabajador, buscar_trabajadores, buscar_x_dni, vinculos};
 use employ::legajo::{añadir_prestamo, buscar_prestamos, editar_prestamo};
 use employ::login::login;
+use legajo::estante::{agregar_ubicacion, get_ubicacion, ingresar_estante, listar_estantes};
 use notion::notion::fetch_notion;
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -57,7 +59,11 @@ pub fn run() -> Result<(), Box<dyn std::error::Error>> {
             actualizar_trabajador,
             añadir_prestamo,
             editar_prestamo,
-            buscar_prestamos
+            buscar_prestamos,
+            ingresar_estante,
+            agregar_ubicacion,
+            get_ubicacion,
+            listar_estantes,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

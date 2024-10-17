@@ -1,18 +1,20 @@
 <template>
   <div class="home">
-    <div class="header">
-      <div class="botones">
-        <button class="btn btn-sm btn-info" @click="() => (ahora = subMonths(ahora, 1))">
-          <IconArrowLeft size="17" />
-        </button>
-        <button class="btn btn-info btn-sm" @click="() => (ahora = new Date())">Hoy</button>
-        <button class="btn btn-sm btn-info" @click="() => (ahora = addMonths(ahora, 1))">
-          <IconArrowRight size="17" />
-        </button>
-      </div>
-      <span class="title fs-3">{{ meses[ahora.getMonth()] }} {{ ahora.getFullYear() }}</span>
-    </div>
     <div class="calendario">
+      <div class="header">
+        <div class="botones">
+          <button class="btn btn-sm btn-outline-info" @click="() => (ahora = subMonths(ahora, 1))">
+            <IconArrowLeft size="17" />
+          </button>
+          <button class="btn btn-outline-info btn-sm" @click="() => (ahora = new Date())">
+            Hoy
+          </button>
+          <button class="btn btn-sm btn-outline-info" @click="() => (ahora = addMonths(ahora, 1))">
+            <IconArrowRight size="17" />
+          </button>
+        </div>
+        <span class="title fs-3">{{ meses[ahora.getMonth()] }} {{ ahora.getFullYear() }}</span>
+      </div>
       <div class="semana text-secondary">
         <span>Lun</span>
         <span>Mar</span>
@@ -24,6 +26,7 @@
       </div>
       <div class="cuerpo">
         <div v-for="_x in semana()" class="card bg-white" />
+        <!-- <Dia /> -->
         <div class="card fs-4 fw-bold" v-for="x in getDaysInMonth(ahora)">
           {{ x }}
           <span class="badge text-bg-info" v-for="d in notion_data!.filter((e) => e.fecha == x)">{{
@@ -102,7 +105,7 @@ const semana = () => {
 .home {
   display: flex;
   flex-direction: column;
-  padding-top: 7vh;
+  padding-top: 10vh;
   gap: 2vh;
 
   .header {
@@ -124,9 +127,10 @@ const semana = () => {
   .calendario {
     display: flex;
     flex-direction: column;
+    row-gap: 4vh;
     height: 100%;
     background-color: white;
-    padding: 1vh 1vw 1vh 1vw;
+    padding: 3vh 1vw 1vh 1vw;
     border-radius: 20px;
 
     .semana,
@@ -159,6 +163,7 @@ const semana = () => {
         border: 1px solid #ddd;
         border-radius: 10px;
         background-color: #f9f9f9;
+
         span {
           height: max-content;
           width: 100%;

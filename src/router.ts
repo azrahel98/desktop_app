@@ -13,7 +13,7 @@ import { jwtDecode } from 'jwt-decode'
 import { compareAsc } from 'date-fns'
 import Home from './view/dashboard/home.vue'
 import Buscar from './view/dashboard/buscar.vue'
-import Convocatoria from './view/dashboard/convocatoria.vue'
+import Settings from './view/dashboard/settings.vue'
 import Perfil from './view/dashboard/perfil.vue'
 
 const routes: RouteRecordRaw[] = [
@@ -34,9 +34,9 @@ const routes: RouteRecordRaw[] = [
         component: Buscar
       },
       {
-        path: '/convocatoria',
-        name: 'convocatorias',
-        component: Convocatoria
+        path: '/settings',
+        name: 'settings',
+        component: Settings
       },
       {
         path: '/perfil/:dni',

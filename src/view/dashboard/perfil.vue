@@ -4,7 +4,34 @@
     <div class="pagina">
       <div class="lista">
         <Card v-for="job in vinculos" :job="job" />
-        <div class="card legajo">
+        <div class="card armario w-100">
+          <h2 class="title fs-5 mb-0 text-center py-3">Ubicacion</h2>
+          <div class="d-flex justify-content-center" v-if="ubicacion == null">
+            <Estante />
+          </div>
+          <div class="armario-container" v-else>
+            <div class="armario">
+              <div
+                v-for="fila in ubicacion.fila"
+                :key="'fila-' + fila"
+                class="fila"
+                :style="{ height: `calc(100% / ${ubicacion.fila})` }"
+              >
+                <div
+                  v-for="columna in ubicacion.columna"
+                  :key="'columna-' + columna"
+                  class="columna"
+                  :style="{ width: `calc(100% / ${ubicacion.columna})` }"
+                >
+                  <div class="estante"></div>
+                  <div v-if="tieneArchivador(fila, columna)" class="archivador" />
+                  <div class="archivador-anillas"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="card legajo">
           <h2 class="title fs-5 mb-0 text-center py-3">Historial</h2>
           <button
             v-if="historial.filter((x) => x.devuelto == null).length == 0"
@@ -58,7 +85,7 @@
               />
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div></div>
     </div>
@@ -66,19 +93,23 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import { router } from '../../router'
-import { IconPlus, IconOutbound, IconArrowSharpTurnLeft } from '@tabler/icons-vue'
+// import { IconPlus, IconOutbound, IconArrowSharpTurnLeft } from '@tabler/icons-vue'
 import Card from '@com/perfil/card.vue'
 import { RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 import Avatar from '@com/perfil/avatar.vue'
 import { invoke } from '@tauri-apps/api/core'
-import Legajo_modal from '@com/perfil/legajo_modal.vue'
-import Devuelto from '@com/perfil/devuelto.vue'
+// import Legajo_modal from '@com/perfil/legajo_modal.vue'
+// import Devuelto from '@com/perfil/devuelto.vue'
+import Estante from '../../components/perfil/legajo/estanteadd.vue'
 
 const perfil = ref<any>({})
 const vinculos = ref<Array<any>>([])
 const historial = ref<Array<any>>([])
+
+const ubicacion = ref<any>(null)
+const archivadores = reactive(new Set())
 
 onMounted(async () => await consulta(router.currentRoute.value.params.dni.toString()))
 
@@ -96,9 +127,20 @@ const consulta = async (x: string) => {
     vinculos.value = vin
 
     historial.value = await invoke('buscar_prestamos', { dni: x })
+    ubicacion.value = await invoke('get_ubicacion', { dni: x })
+    agregarArchivador()
   } catch (error) {
     console.log(error)
   }
+}
+
+const agregarArchivador = () => {
+  archivadores.clear()
+  const posicion = `${ubicacion.value.fila},${ubicacion.value.columna}`
+  archivadores.add(posicion)
+}
+const tieneArchivador = (fila: any, columna: any) => {
+  return archivadores.has(`${fila},${columna}`)
 }
 </script>
 <style lang="scss" scoped>
@@ -173,5 +215,132 @@ const consulta = async (x: string) => {
 .row {
   padding: 0;
   margin: 0;
+}
+</style>
+<style scoped>
+.card {
+  width: 100%;
+  max-width: 230px;
+  height: 100%;
+  display: grid;
+  background-color: white !important;
+}
+.armario-container {
+  position: relative;
+  padding-bottom: 40px;
+  height: 21vh;
+}
+
+.armario {
+  background: linear-gradient(-5deg, #b8b8b8, #d9d9d9);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.fila {
+  display: flex;
+  flex: 1;
+}
+
+.columna {
+  flex: 1;
+  border-right: 2px solid #909090;
+  border-bottom: 2px solid #909090;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.columna:last-child {
+  border-right: none;
+}
+
+.fila:last-child .columna {
+  border-bottom: none;
+}
+
+.estante {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(to bottom, #d9d9d9, #b8b8b8);
+}
+
+.archivador {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  background-color: #000000;
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.archivador::before {
+  content: '';
+  position: absolute;
+  left: 10%;
+  top: 5px;
+  bottom: 5px;
+  width: 20px;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
+.archivador::after {
+  content: 'ARTESCO';
+  position: absolute;
+  left: 15%;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  color: #000000;
+  font-size: 10px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.archivador-anillas {
+  position: absolute;
+  left: 5px;
+  top: 15%;
+  bottom: 15%;
+  width: 5px;
+  background-color: #555555;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.archivador-anillas::before,
+.archivador-anillas::after {
+  content: '';
+  height: 10px;
+  width: 10px;
+  background-color: #888888;
+  border-radius: 50%;
+  position: absolute;
+  left: -2.5px;
+}
+
+.archivador-anillas::before {
+  top: -5px;
+}
+
+.archivador-anillas::after {
+  bottom: -5px;
+}
+
+@media (max-width: 768px) {
+  .armario {
+    height: 300px;
+  }
 }
 </style>

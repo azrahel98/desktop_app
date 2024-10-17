@@ -73,7 +73,7 @@ pub async fn buscar_x_dni(
     let rows = sqlx::query_as!(
         InforTrabajador,
         "select
-            concat(apaterno, ' ', apaterno, ' ', nombres) nombres,
+            concat(apaterno, ' ', amaterno, ' ', nombres) nombres,
             cast(aes_decrypt(direccion, ?) as char) direccion,
             dni,
             cast(aes_decrypt(telf, ?) as char) telefono,
