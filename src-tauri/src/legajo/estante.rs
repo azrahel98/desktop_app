@@ -86,8 +86,10 @@ pub async fn agregar_ubicacion(
 pub struct Ubicacion {
     dni: Option<String>,
     nombre: Option<String>,
-    fila: Option<i32>,
-    columna: Option<i32>,
+    filas: Option<i32>,
+    columnas: Option<i32>,
+    ufila: Option<i32>,
+    ucolumna: Option<i32>,
 }
 
 #[command]
@@ -100,8 +102,10 @@ pub async fn get_ubicacion(
         "select
   dg.dni,
   es.nombre,
-  u.fila,
-  u.columna
+  es.filas,
+  es.columnas,
+  u.fila ufila,
+  u.columna ucolumna
 from
   ubicaciones_legajos u
   inner join Datos_generales dg on u.trabajador_id = dg.dni
