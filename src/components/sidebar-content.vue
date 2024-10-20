@@ -1,5 +1,5 @@
 <template>
-  <div class="col-xl-3 col-xxl-2">
+  <div class="col-xl-3 col-xxl-2 mt-0 p-0">
     <div class="sidebar">
       <div class="s-1 flex-column">
         <div class="title text-center">
@@ -61,7 +61,7 @@ defineProps({
 
 .sidebar {
   display: grid;
-  grid-template-rows: auto 10vh;
+  grid-template-rows: auto min-content;
   height: 100vh;
   position: sticky;
   top: 0;

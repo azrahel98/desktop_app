@@ -1,11 +1,9 @@
-import App from "./App.vue";
+import App from './App.vue'
 
-import { createApp } from "vue";
-import { router } from "./router";
-import { createPinia } from "pinia";
+import { createApp } from 'vue'
+import { router } from './router'
+import { createPinia } from 'pinia'
 
-import "./custom.scss";
-// import './main.scss'
+import '../src/assets/tabler.css'
 
-
-createApp(App).use(router).use(createPinia()).mount("#app");
+createApp(App).use(router).use(createPinia()).mount('#app')

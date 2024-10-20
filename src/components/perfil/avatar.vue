@@ -1,68 +1,37 @@
 <template>
   <div class="profile-header text-dark">
-    <div class="row justify-content-center">
-      <div class="col-auto">
-        <div class="position-relative">
-          <div
-            class="profile-picture bg-secondary rounded-circle d-flex align-items-center justify-content-center"
-            style="width: 100px; height: min-content"
-          >
-            <img
-              v-if="perfil.imagen == undefined"
-              alt="Profile"
-              src="../../assets/logo.png"
-              class="rounded-circle"
-              style="width: 100px; height: 100px; object-fit: cover"
-            />
-            <img
-              v-else
-              alt="Profile"
-              :src="`${perfil.imagen}`"
-              class="rounded-circle"
-              style="width: 100px; height: 100px; object-fit: cover"
-            />
+    <div class="header">
+      <span class="avatar rounded">
+        <img src="../../assets/mujer.svg" height="2px" class="border-1 border-secondary" />
+      </span>
+      <div class="card">
+        <div class="card-body">
+          <div class="mb-2">
+            <IconBook size="24" class="icon text-secondary" />
+            Estudio en: <strong>University of Ljubljana</strong>
           </div>
-        </div>
-      </div>
-      <div class="col-8">
-        <div class="d-flex justify-content-between gap-4 align-items-center mb-2">
-          <h4 class="mb-0 fw-semibold">{{ perfil.nombres }}</h4>
+          <div class="mb-2">
+            <IconBriefcase class="icon text-secondary" />
+            Worked at: <strong>Devpulse</strong>
+          </div>
+          <div class="mb-2">
+            <IconHome class="icon text-secondary" />
+
+            Lives in: <strong>Šentilj v Slov. Goricah, Slovenia</strong>
+          </div>
+          <div class="mb-2">
+            <IconMapPin class="icon text-secondary" />
+            From: <strong><span class="flag flag-country-si"></span> Slovenia</strong>
+          </div>
+          <div class="mb-2">
+            <IconCalendar class="icon text-secondary" />
+            Birth date: <strong>13/01/1985</strong>
+          </div>
           <div>
-            <button
-              class="btn btn-outline-primary p-0 m-0 px-3"
-              data-bs-toggle="modal"
-              data-bs-target="#editProfileModal"
-            >
-              <IconEdit size="18" />
-            </button>
-            <ModalPerfil :perfil="perfil" />
+            <IconClock class="icon text-secondary" />
+            Time zone: <strong>Europe/Ljubljana</strong>
           </div>
         </div>
-        <div
-          class="d-flex mb-2 flex-wrap row-gap-0 column-gap-2 p-0 m-0 justify-content-center justify-content-sm-start justify-content-md-start"
-        >
-          <div class="me-4 info p-0 m-0" v-if="perfil.direccion != null">
-            <IconHome2 size="24" />
-            <span>{{ perfil.direccion }}</span>
-          </div>
-          <div class="me-4 info" v-if="perfil.telefono != null">
-            <IconPhone size="24" />
-            <span>{{ perfil.telefono }}</span>
-          </div>
-          <div class="me-4 info" v-if="perfil.correo != null">
-            <IconMailAi size="24" />
-            <span>{{ perfil.correo }}</span>
-          </div>
-          <div class="me-4 info" v-if="perfil.nacimiento != null">
-            <IconCake size="24" />
-            <span>{{ perfil.nacimiento }}</span>
-          </div>
-          <div class="me-4 info" v-if="perfil.ruc != null">
-            <IconBuildingBank size="24" />
-            <span>{{ perfil.ruc }}</span>
-          </div>
-        </div>
-        <p class="mb-0 text-muted">@{{ perfil.dni }}</p>
       </div>
     </div>
   </div>
@@ -71,12 +40,12 @@
 <script setup lang="ts">
 import ModalPerfil from './modal.vue'
 import {
-  IconHome2,
-  IconPhone,
-  IconMailAi,
-  IconCake,
-  IconBuildingBank,
-  IconEdit
+  IconBook,
+  IconBriefcase,
+  IconHome,
+  IconMapPin,
+  IconCalendar,
+  IconClock
 } from '@tabler/icons-vue'
 
 defineProps({
@@ -85,25 +54,11 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.profile-header {
-  max-width: 100%;
-  padding: 0 !important;
-  margin: 0 !important;
-  height: min-content;
-
-  .row {
-    padding: 0 !important;
-    margin: 0 !important;
-    align-items: start;
-    justify-content: start;
-    justify-items: start;
-  }
-}
-
-.info {
-  display: flex;
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   justify-content: center;
   align-items: center;
-  font-size: 0.874rem;
+  justify-items: center;
 }
 </style>

@@ -61,8 +61,8 @@ defineProps({
   width: 100%;
   max-width: 230px;
   height: 100%;
-  max-height: 35vh;
   display: grid;
+  height: min-content;
   grid-template-rows: auto min-content;
   .card-body {
     display: flex;

@@ -1,5 +1,9 @@
 <template>
   <div class="container pb-0 mb-0">
+    <div class="text-start">
+      <div class="page-pretitle fw-medium">Overview</div>
+      <h2 class="page-title">Perfil</h2>
+    </div>
     <Avatar :perfil="perfil" />
     <div class="pagina">
       <div class="lista">
@@ -20,6 +24,7 @@
           />
         </div>
       </div>
+      <div />
     </div>
   </div>
 </template>
@@ -27,13 +32,10 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from 'vue'
 import { router } from '../../router'
-// import { IconPlus, IconOutbound, IconArrowSharpTurnLeft } from '@tabler/icons-vue'
 import Card from '@com/perfil/card.vue'
 import { RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 import Avatar from '@com/perfil/avatar.vue'
 import { invoke } from '@tauri-apps/api/core'
-// import Legajo_modal from '@com/perfil/legajo_modal.vue'
-// import Devuelto from '@com/perfil/devuelto.vue'
 import AddEStante from '../../components/perfil/legajo/estanteadd.vue'
 import estante from '@com/perfil/legajo/estante.vue'
 
@@ -77,12 +79,11 @@ const agregarArchivador = () => {
 .container {
   height: 100vh;
   display: grid;
-  grid-template-rows: min-content auto;
-  justify-items: center;
+  grid-template-rows: min-content min-content auto;
   row-gap: 2vh;
   width: 100%;
   padding: 0;
-  padding-top: 7rcap;
+  padding-top: 2rcap;
 
   .pagina {
     display: grid;
@@ -91,6 +92,7 @@ const agregarArchivador = () => {
     padding: 0;
     margin: 0;
     width: 100%;
+    justify-content: start;
     overflow: hidden;
     overflow-y: auto;
     height: 100%;
@@ -99,18 +101,19 @@ const agregarArchivador = () => {
     .lista {
       width: 100%;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, max-content));
-      grid-template-rows: 100%;
+      grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
       justify-content: center;
       justify-items: center;
       row-gap: 5px;
+      height: min-content;
       column-gap: 10px;
       overflow-y: auto;
+      height: 100%;
       .card {
         width: 100%;
         max-width: 230px;
+        max-height: 40vh;
         height: 100%;
-        height: 35vh;
       }
     }
     .legajos {
