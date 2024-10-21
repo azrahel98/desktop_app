@@ -14,7 +14,7 @@
     </div>
     <div class="resultados">
       <div class="card" v-for="x in trabajadores">
-        <div class="card-status-top" :class="[x.activo ? 'bg-success-lt' : 'bg-danger-lt']"></div>
+        <div class="card-status-top" :class="[x.activo ? 'bg-success' : 'bg-danger']"></div>
         <div class="card-body p-4 text-center">
           <span class="avatar avatar-xl mb-3 rounded">
             <img :src="`${x.imagen}`" class="border-1 border-secondary" v-if="x.imagen != null" />
@@ -33,34 +33,14 @@
           </RouterLink>
           <div class="text-secondary">{{ x.dni }}</div>
           <div class="mt-1">
-            <span class="badge" :class="[x.activo ? 'bg-success-lt' : 'bg-danger-lt']">{{
-              x.activo ? 'Activo' : 'Inactivo'
-            }}</span>
+            <span
+              class="badge"
+              :class="[x.activo ? 'bg-success text-white' : 'bg-danger text-white']"
+              >{{ x.activo ? 'Activo' : 'Inactivo' }}</span
+            >
           </div>
         </div>
       </div>
-      <!-- <div v-for="x in trabajadores" class="card rounded-4">
-        <div class="rounded-0 p-0 m-0">
-          <img :src="`${x.imagen}`" class="border-1 border-secondary" v-if="x.imagen != null" />
-          <img src="../../assets/mujer.svg" class="border-1 border-secondary" v-else-if="!x.sexo" />
-          <img src="../../assets/mann.svg" class="border-1 border-secondary" v-else />
-        </div>
-
-        <div class="user">
-          <span class="nombre p-0 m-0">{{ x.nombre }}</span>
-          <span class="text-secondary">@{{ x.dni }}</span>
-        </div>
-        <div class="rounded-bottom-4 text-center">
-          <button
-            class="btn btn-sm border-0"
-            :class="[x.activo ? 'btn-outline-primary' : 'btn-outline-danger']"
-          >
-            <RouterLink :to="{ name: 'perfil', params: { dni: x.dni.toString() } }">
-              <IconDirectionSign class="w-100" size="30" />
-            </RouterLink>
-          </button>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>

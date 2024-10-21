@@ -34,6 +34,7 @@ const closeSidebar = () => {
     auto;
   column-gap: 2vw;
   padding: 0;
+  background-color: var(--tblr-body-bg);
   margin: 0;
 
   .pagina {

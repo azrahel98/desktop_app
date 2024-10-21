@@ -1,6 +1,6 @@
 <template>
   <div class="container pb-0 mb-0">
-    <div class="text-start">
+    <div class="text-start pb-5">
       <div class="page-pretitle fw-medium">Overview</div>
       <h2 class="page-title">Perfil</h2>
     </div>
@@ -64,6 +64,7 @@ const consulta = async (x: string) => {
     historial.value = await invoke('buscar_prestamos', { dni: x })
     ubicacion.value = await invoke('get_ubicacion', { dni: x })
     agregarArchivador()
+    console.log(vinculos.value)
   } catch (error) {
     console.log(error)
   }
@@ -78,14 +79,22 @@ const agregarArchivador = () => {
 <style lang="scss" scoped>
 .container {
   height: 100vh;
+  margin: 0;
   display: grid;
   grid-template-rows: min-content min-content auto;
+  grid-template-columns: 1fr;
   row-gap: 2vh;
-  width: 100%;
+  max-width: 100%;
   padding: 0;
   padding-top: 2rcap;
 
+  .main {
+    padding-left: 5vh;
+    justify-self: center;
+  }
+
   .pagina {
+    justify-self: center;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
@@ -101,7 +110,7 @@ const agregarArchivador = () => {
     .lista {
       width: 100%;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+      grid-template-columns: repeat(auto-fit, minmax(230px, max-content));
       justify-content: center;
       justify-items: center;
       row-gap: 5px;
@@ -113,6 +122,7 @@ const agregarArchivador = () => {
         width: 100%;
         max-width: 230px;
         max-height: 40vh;
+        min-height: 40vh;
         height: 100%;
       }
     }

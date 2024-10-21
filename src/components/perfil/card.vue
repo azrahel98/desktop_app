@@ -31,7 +31,10 @@
         </li>
       </ul>
     </div>
-    <div class="card-footer" :class="[job.activo === 'N' ? 'bg-danger-subtle' : 'bg-transparent']">
+    <div
+      class="card-footer p-2"
+      :class="[job.activo === 'N' ? 'bg-danger-subtle' : 'bg-transparent']"
+    >
       <small
         class="text-primary"
         :class="[job.activo === 'N' ? 'text-danger fw-bold' : 'text-primary fw-bold']"

@@ -1,35 +1,63 @@
 <template>
-  <div class="profile-header text-dark">
-    <div class="header">
-      <span class="avatar rounded">
-        <img src="../../assets/mujer.svg" height="2px" class="border-1 border-secondary" />
-      </span>
-      <div class="card">
-        <div class="card-body">
-          <div class="mb-2">
-            <IconBook size="24" class="icon text-secondary" />
-            Estudio en: <strong>University of Ljubljana</strong>
-          </div>
-          <div class="mb-2">
-            <IconBriefcase class="icon text-secondary" />
-            Worked at: <strong>Devpulse</strong>
-          </div>
-          <div class="mb-2">
-            <IconHome class="icon text-secondary" />
-
-            Lives in: <strong>Šentilj v Slov. Goricah, Slovenia</strong>
-          </div>
-          <div class="mb-2">
-            <IconMapPin class="icon text-secondary" />
-            From: <strong><span class="flag flag-country-si"></span> Slovenia</strong>
-          </div>
-          <div class="mb-2">
-            <IconCalendar class="icon text-secondary" />
-            Birth date: <strong>13/01/1985</strong>
-          </div>
-          <div>
-            <IconClock class="icon text-secondary" />
-            Time zone: <strong>Europe/Ljubljana</strong>
+  <div class="main">
+    <div class="row">
+      <div class="col-sm-1 col-md-2 col-g-4">
+        <div class="avatar rounded-3 w-100">
+          <img
+            v-if="!perfil.imagen"
+            src="../../assets/mann.svg"
+            class="rounded-circle img-fluid"
+            style="object-fit: fill"
+          />
+          <img
+            v-else
+            :src="perfil.imagen"
+            :alt="perfil.nombres"
+            class="rounded-circle img-fluid"
+            style="width: 100px; height: 100px; object-fit: cover"
+          />
+        </div>
+      </div>
+      <div class="col-sm-1 col-md-2 col-lg-2 text-center">
+        <button
+          class="btn btn-outline-primary btn-icon btn-md"
+          data-bs-toggle="modal"
+          data-bs-target="#editProfileModal"
+        >
+          <IconEdit size="18" />
+        </button>
+        <ModalPerfil class="text-start" :perfil="perfil" />
+      </div>
+      <div class="col-sm-12 col-md-8 col-lg-6 text-start">
+        <div class="card">
+          <div class="card-body d-flex flex-wrap">
+            <div class="card-title">
+              {{ perfil.nombres }}
+            </div>
+            <div class="mb-2" v-if="perfil.ruc">
+              <IconClipboardList class="icon me-2 text-secondary" />
+              Ruc : <strong>{{ perfil.ruc }}</strong>
+            </div>
+            <div class="" v-if="perfil.correo">
+              <IconMail class="icon me-2 text-secondary" />
+              Correo : <strong>{{ perfil.correo }}</strong>
+            </div>
+            <div class="" v-if="perfil.direccion">
+              <IconHome class="icon me-2 text-secondary" />
+              Vive en: <strong>{{ perfil.direccion }}</strong>
+            </div>
+            <div class="" v-if="perfil.telefono">
+              <IconPhoneCall class="icon me-2 text-secondary" />
+              Telefono: <strong>{{ perfil.telefono }}</strong>
+            </div>
+            <div class="" v-if="perfil.nacimiento">
+              <IconCalendar class="icon text-secondary me-2" />
+              Cumpleaños: <strong>{{ perfil.nacimiento }}</strong>
+            </div>
+            <div v-if="perfil.dni">
+              <IconCreditCard class="icon text-secondary me-2" />
+              Dni: <strong>{{ perfil.dni }}</strong>
+            </div>
           </div>
         </div>
       </div>
@@ -40,12 +68,13 @@
 <script setup lang="ts">
 import ModalPerfil from './modal.vue'
 import {
-  IconBook,
-  IconBriefcase,
   IconHome,
-  IconMapPin,
+  IconEdit,
   IconCalendar,
-  IconClock
+  IconClipboardList,
+  IconMail,
+  IconPhoneCall,
+  IconCreditCard
 } from '@tabler/icons-vue'
 
 defineProps({
@@ -54,11 +83,27 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.header {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.main {
+  display: flex;
   justify-content: center;
-  align-items: center;
+  flex-direction: column;
   justify-items: center;
+  max-width: 1000px;
+  .row {
+    justify-items: center;
+    justify-content: space-around;
+    align-items: start;
+    .avatar {
+      height: 100%;
+      img {
+        height: 20vh;
+        width: 100%;
+      }
+    }
+    .card {
+      max-height: 20vh;
+      overflow-y: auto;
+    }
+  }
 }
 </style>
