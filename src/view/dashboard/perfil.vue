@@ -1,8 +1,8 @@
 <template>
   <div class="container pb-0 mb-0">
     <div class="text-start pb-5">
-      <div class="page-pretitle fw-medium">Overview</div>
-      <h2 class="page-title">Perfil</h2>
+      <div class="page-pretitle fw-medium">Perfil</div>
+      <h2 class="page-title">{{ perfil.nombres }}</h2>
     </div>
     <Avatar :perfil="perfil" />
     <div class="pagina">
@@ -121,14 +121,8 @@ const agregarArchivador = () => {
       .card {
         width: 100%;
         max-width: 230px;
-
-        height: min-content;
+        height: 40vh;
       }
-    }
-    .legajos {
-      display: grid;
-      grid-template-rows: min-content min-content auto;
-      justify-items: center;
     }
   }
 }

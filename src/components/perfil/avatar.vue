@@ -30,10 +30,7 @@
       </div>
       <div class="col-sm-12 col-md-8 col-lg-6 text-start">
         <div class="card">
-          <div class="card-body d-flex flex-wrap">
-            <div class="card-title fs-2 fw-medium">
-              {{ perfil.nombres }}
-            </div>
+          <div class="card-body pb-1 pt-3 d-flex flex-wrap">
             <div class="mb-2" v-if="perfil.ruc">
               <IconClipboardList class="icon me-2 text-secondary" />
               Ruc : <strong>{{ perfil.ruc }}</strong>
@@ -102,6 +99,7 @@ defineProps({
     }
     .card {
       max-height: 20vh;
+
       overflow-y: auto;
     }
   }

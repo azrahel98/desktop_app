@@ -111,8 +111,11 @@ const realizarBusqueda = async () => {
     width: 30vw;
     align-items: center;
 
+    justify-content: center;
     .form-control {
+      justify-self: center;
       font-size: 0.84rem !important;
+      max-width: 14vw;
     }
   }
   .resultados {

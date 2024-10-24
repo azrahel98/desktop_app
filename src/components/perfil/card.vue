@@ -33,11 +33,11 @@
     </div>
     <div
       class="card-footer p-2"
-      :class="[job.activo === 'N' ? 'bg-danger-subtle' : 'bg-transparent']"
+      :class="[job.activo === 'N' ? 'bg-danger-subtle' : 'bg-facebook-lt']"
     >
       <small
-        class="text-primary"
-        :class="[job.activo === 'N' ? 'text-danger fw-bold' : 'text-primary fw-bold']"
+        class=""
+        :class="[job.activo === 'N' ? 'text-danger fw-bold' : 'text-facebook fw-bold']"
       >
         {{ job.activo === 'N' ? 'Finalizado' : 'Activo' }}
       </small>
