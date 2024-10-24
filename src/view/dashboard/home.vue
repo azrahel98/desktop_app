@@ -1,19 +1,21 @@
 <template>
   <div class="home">
-    <div class="calendario">
+    <div class="text-start pb-5">
+      <div class="page-pretitle fw-medium">Dashboard</div>
+      <h2 class="page-title">Calendario / Inicio</h2>
+    </div>
+    <div class="calendario card">
       <div class="header">
         <div class="botones">
-          <button class="btn btn-sm btn-outline-info" @click="() => (ahora = subMonths(ahora, 1))">
+          <button class="btn btn-md btn-facebook" @click="() => (ahora = subMonths(ahora, 1))">
             <IconArrowLeft size="17" />
           </button>
-          <button class="btn btn-outline-info btn-sm" @click="() => (ahora = new Date())">
-            Hoy
-          </button>
-          <button class="btn btn-sm btn-outline-info" @click="() => (ahora = addMonths(ahora, 1))">
+          <button class="btn btn-outline-facebook" @click="() => (ahora = new Date())">Hoy</button>
+          <button class="btn btn-md btn-facebook" @click="() => (ahora = addMonths(ahora, 1))">
             <IconArrowRight size="17" />
           </button>
         </div>
-        <span class="title fs-3">{{ meses[ahora.getMonth()] }} {{ ahora.getFullYear() }}</span>
+        <span class="page-title fs-2">{{ meses[ahora.getMonth()] }} {{ ahora.getFullYear() }}</span>
       </div>
       <div class="semana text-secondary">
         <span>Lun</span>
@@ -60,6 +62,8 @@ const meses = [
 const ahora = ref<Date>(new Date())
 const notion_data = ref<Array<any>>([])
 
+const cumples = ref([])
+
 onMounted(async () => {
   await consulta()
 })
@@ -92,6 +96,9 @@ const consulta = async () => {
       })
     }
   )
+  cumples.value = await invoke('cumpleaños_lista', { mes: ahora.value.getMonth() })
+
+  console.log(cumples.value)
 }
 
 const semana = () => {
@@ -105,17 +112,17 @@ const semana = () => {
 .home {
   display: flex;
   flex-direction: column;
-  padding-top: 10vh;
+  padding-top: 4vh;
   gap: 2vh;
 
   .header {
     display: grid;
     grid-template-columns: min-content 1fr;
-    padding: 0 4vw 0 4vw;
+    padding: 2vh 4vw 2vh 4vw;
     flex-wrap: wrap;
     width: 100%;
-    text-align: center;
-    align-items: center;
+    justify-items: center;
+    border-bottom: 1px solid #ddd;
 
     .botones {
       display: flex;
@@ -127,21 +134,24 @@ const semana = () => {
   .calendario {
     display: flex;
     flex-direction: column;
-    row-gap: 4vh;
     height: 100%;
     background-color: white;
-    padding: 3vh 1vw 1vh 1vw;
-    border-radius: 20px;
-
+    padding: 0.4vh 1vw 1vh 1vw;
     .semana,
     .cuerpo {
       display: grid;
       justify-content: center;
       align-items: center;
       row-gap: 0.25vh;
+      height: 100%;
       column-gap: 0.2vw;
       text-align: center;
       grid-template-columns: repeat(7, 1fr);
+    }
+
+    .semana {
+      padding-top: 2vh;
+      height: min-content;
     }
 
     .cuerpo {

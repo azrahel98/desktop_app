@@ -8,7 +8,7 @@
     <div class="pagina">
       <div class="lista">
         <Card v-for="job in vinculos" :job="job" />
-        <div class="card w-100">
+        <div class="card w-100" style="max-height: 30vh; height: 100%">
           <h2 class="title fs-6 mb-0 text-center py-3" v-if="ubicacion != null">
             {{ ubicacion.nombre }}
           </h2>
@@ -121,9 +121,8 @@ const agregarArchivador = () => {
       .card {
         width: 100%;
         max-width: 230px;
-        max-height: 40vh;
-        min-height: 40vh;
-        height: 100%;
+
+        height: min-content;
       }
     }
     .legajos {

@@ -31,7 +31,7 @@
       <div class="col-sm-12 col-md-8 col-lg-6 text-start">
         <div class="card">
           <div class="card-body d-flex flex-wrap">
-            <div class="card-title">
+            <div class="card-title fs-2 fw-medium">
               {{ perfil.nombres }}
             </div>
             <div class="mb-2" v-if="perfil.ruc">

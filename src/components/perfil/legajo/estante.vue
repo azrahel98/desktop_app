@@ -179,7 +179,7 @@ $anillas-color: #555555;
     content: '';
     height: 12px;
     width: 12px;
-    background-color: lighten($anillas-color, 20%);
+    //background-color: lighten($anillas-color, 20%);
     border-radius: 50%;
     position: absolute;
     left: -2px;

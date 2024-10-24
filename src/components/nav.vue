@@ -1,12 +1,12 @@
 <template>
   <div class="nav">
     <div />
-    <div class="card border-0">
+    <div class="card border-0 bg-transparent">
       <div class="d-flex mx-1">
-        <div class="avatar" style="height: 40px; width: 40px">
-          <img src="../assets/logo.png" class="img-fluid rounded-circle" />
+        <div class="avatar avatar-lg avatar-rounded">
+          <img src="../assets/logo.png" class="img-responsive-9x21" />
         </div>
-        <button class="btn btn-sm" @click="toggle()">&#9776;</button>
+        <button class="btn btn-sm btn-ghost-primary" @click="toggle()">&#9776;</button>
       </div>
     </div>
   </div>
@@ -39,7 +39,17 @@ defineProps({
     justify-content: space-between;
     align-items: center;
     padding: 0.5vh 0.3vw 0.6vh 0.6vw;
-    height: 40px;
+
+    .d-flex {
+      justify-content: center;
+      gap: 1vw;
+      justify-items: center;
+      align-items: center;
+
+      .btn {
+        height: min-content;
+      }
+    }
 
     input {
       border-radius: 20px;
@@ -51,10 +61,6 @@ defineProps({
     :focus-visible,
     :focus {
       box-shadow: none;
-    }
-    .avatar {
-      width: 2.2rem;
-      height: 2.2rem;
     }
   }
 }

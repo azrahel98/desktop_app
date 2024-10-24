@@ -211,3 +211,45 @@ pub async fn actualizar_trabajador(
         }),
     }
 }
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Lista {
+    dni: Option<String>,
+    nombres: Option<String>,
+    dia: Option<i32>,
+    edad: Option<i32>,
+}
+
+#[command]
+pub async fn cumpleaños_lista(
+    state: State<'_, MysqWrapper>,
+    mes: i32,
+) -> Result<Vec<Lista>, ErrorMves> {
+    let rows = sqlx::query_as!(
+        Lista,
+        "select
+  dg.dni,
+  day(dg.fecha_nacimiento) dia,
+  concat(dg.apaterno,' ',dg.amaterno,' ',dg.nombres) nombres,
+  2024 - year(dg.fecha_nacimiento) edad
+from
+  Datos_generales dg
+  inner join Vinculo v on dg.dni = v.dni
+where
+  v.activo = 'Y'
+  and month(dg.fecha_nacimiento) = ?",
+        mes
+    )
+    .fetch_all(&state.pool)
+    .await;
+
+    match rows {
+        Ok(us) => Ok(us),
+        Err(error) => {
+            return Err(ErrorMves {
+                code: 6,
+                message: error.as_database_error().unwrap().to_string(),
+            });
+        }
+    }
+}

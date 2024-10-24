@@ -9,7 +9,9 @@ use std::env;
 use std::time::Duration;
 use tokio::runtime::Runtime;
 
-use employ::employ::{actualizar_trabajador, buscar_trabajadores, buscar_x_dni, vinculos};
+use employ::employ::{
+    actualizar_trabajador, buscar_trabajadores, buscar_x_dni, cumpleaños_lista, vinculos,
+};
 use employ::legajo::{añadir_prestamo, buscar_prestamos, editar_prestamo};
 use employ::login::login;
 use legajo::estante::{agregar_ubicacion, get_ubicacion, ingresar_estante, listar_estantes};
@@ -64,6 +66,7 @@ pub fn run() -> Result<(), Box<dyn std::error::Error>> {
             agregar_ubicacion,
             get_ubicacion,
             listar_estantes,
+            cumpleaños_lista
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
