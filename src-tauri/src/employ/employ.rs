@@ -146,18 +146,14 @@ pub async fn vinculos(
         inner join Regimen rg on p.regimen = rg.id_regimen
       where
         v.dni = ?
-        ORDER BY v.fecha_ingreso desc",
+        ORDER BY v.activo",
         dni
     )
     .fetch_all(&state.pool)
     .await;
 
-    println!("{}", dni);
     match rows {
-        Ok(us) => {
-            println!("{:?}", us);
-            return Ok(us);
-        }
+        Ok(us) => Ok(us),
         Err(error) => {
             return Err(ErrorMves {
                 code: 6,
@@ -257,12 +253,11 @@ where
         }
     }
 }
-
 #[command]
 pub async fn renuncia_trabajador(
     state: State<'_, MysqWrapper>,
     id: i32,
-    fecha: NaiveDate,
+    fecha: &str,
 ) -> Result<bool, ErrorMves> {
     let result = sqlx::query!(
         "UPDATE Vinculo set fecha_salida = ?, activo = 'N' where id = ?",

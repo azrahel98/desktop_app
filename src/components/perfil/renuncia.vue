@@ -75,6 +75,7 @@ const modal = ref<HTMLElement | null>(null)
 const handleSubmit = async (id: number) => {
   try {
     if (!fecha.value) return
+    console.log(fecha.value)
     await invoke('renuncia_trabajador', { id, fecha: fecha.value })
     emit('submit', fecha.value)
     closemodal(modal.value)

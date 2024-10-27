@@ -33,7 +33,7 @@
         <li v-if="job.renuncia" class="mb-1">
           <IconArrowRight size="20" class="text-danger" />
           <span class="badge bg-youtube text-white"> Renuncia:</span>
-          {{ formatDate(addDays(job.hvb, 1), 'dd MMM yyyy') }}
+          {{ formatDate(addDays(job.renuncia, 1), 'dd MMM yyyy') }}
         </li>
       </ul>
     </div>
