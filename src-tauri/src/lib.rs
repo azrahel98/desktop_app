@@ -10,7 +10,8 @@ use std::time::Duration;
 use tokio::runtime::Runtime;
 
 use employ::employ::{
-    actualizar_trabajador, buscar_trabajadores, buscar_x_dni, cumpleaños_lista, vinculos,
+    actualizar_trabajador, buscar_trabajadores, buscar_x_dni, cumpleaños_lista,
+    renuncia_trabajador, vinculos,
 };
 use employ::legajo::{añadir_prestamo, buscar_prestamos, editar_prestamo};
 use employ::login::login;
@@ -58,6 +59,7 @@ pub fn run() -> Result<(), Box<dyn std::error::Error>> {
             fetch_notion,
             buscar_x_dni,
             vinculos,
+            renuncia_trabajador,
             actualizar_trabajador,
             añadir_prestamo,
             editar_prestamo,

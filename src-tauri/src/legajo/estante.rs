@@ -37,11 +37,31 @@ pub async fn ingresar_estante(
     }
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Estatntetotal {
+    id: i32,
+    nombre: String,
+    legajos: i64,
+}
+
 #[command]
-pub async fn listar_estantes(state: State<'_, MysqWrapper>) -> Result<Vec<Table>, ErrorMves> {
-    let table = sqlx::query_as!(Table, "select * from Estantes")
-        .fetch_all(&state.pool)
-        .await;
+pub async fn listar_estantes(
+    state: State<'_, MysqWrapper>,
+) -> Result<Vec<Estatntetotal>, ErrorMves> {
+    let table = sqlx::query_as!(
+        Estatntetotal,
+        "select
+  e.id,
+  e.nombre,
+  count(*) legajos
+from
+  ubicaciones_legajos ul
+  inner join Estantes e on e.id = ul.estante_id
+GROUP by
+  ul.estante_id"
+    )
+    .fetch_all(&state.pool)
+    .await;
 
     match table {
         Ok(e) => Ok(e),
@@ -112,14 +132,18 @@ from
   inner join Estantes es on u.estante_id = es.id where dg.dni = ? ",
         dni
     )
-    .fetch_one(&state.pool)
+    .fetch_optional(&state.pool)
     .await;
 
     match result {
-        Ok(e) => Ok(e),
         Err(err) => Err(ErrorMves {
             code: 10,
             message: err.as_database_error().unwrap().to_string(),
+        }),
+        Ok(Some(e)) => Ok(e),
+        Ok(None) => Err(ErrorMves {
+            code: 10,
+            message: "No se encontraron resultados".to_string(),
         }),
     }
 }

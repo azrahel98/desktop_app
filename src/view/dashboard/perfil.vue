@@ -1,15 +1,19 @@
 <template>
   <div class="container pb-0 mb-0">
-    <div class="text-start pb-5">
+    <div class="text-start">
       <div class="page-pretitle fw-medium">Perfil</div>
       <h2 class="page-title">{{ perfil.nombres }}</h2>
     </div>
     <Avatar :perfil="perfil" />
     <div class="pagina">
       <div class="lista">
-        <Card v-for="job in vinculos" :job="job" />
-        <div class="card w-100" style="max-height: 30vh; height: 100%">
-          <h2 class="title fs-6 mb-0 text-center py-3" v-if="ubicacion != null">
+        <Card
+          v-for="job in vinculos"
+          :job="job"
+          @submit="consulta(router.currentRoute.value.params.dni.toString())"
+        />
+        <div class="card legajo w-100" style="max-height: 30vh; height: 100%">
+          <h2 class="card-title fw-bold p-3 text-center" v-if="ubicacion != null">
             {{ ubicacion.nombre }}
           </h2>
           <h2 class="title fs-6 mb-0 text-center py-3" v-else>Agregar a Armario</h2>
@@ -56,14 +60,15 @@ const consulta = async (x: string) => {
   try {
     vinculos.value = []
     const res = await invoke('buscar_x_dni', { dni: x })
+    console.log(res)
     perfil.value = res
 
     const vin: any = await invoke('vinculos', { dni: x })
     vinculos.value = vin
 
-    historial.value = await invoke('buscar_prestamos', { dni: x })
-    ubicacion.value = await invoke('get_ubicacion', { dni: x })
-    agregarArchivador()
+    // historial.value = await invoke('buscar_prestamos', { dni: x })
+    // ubicacion.value = await invoke('get_ubicacion', { dni: x })
+    // agregarArchivador()
     console.log(vinculos.value)
   } catch (error) {
     console.log(error)
@@ -113,15 +118,16 @@ const agregarArchivador = () => {
       grid-template-columns: repeat(auto-fit, minmax(230px, max-content));
       justify-content: center;
       justify-items: center;
-      row-gap: 5px;
       height: min-content;
       column-gap: 10px;
+      row-gap: 8px;
       overflow-y: auto;
-      height: 100%;
-      .card {
+      height: min-content;
+      .legajo {
         width: 100%;
         max-width: 230px;
-        height: 40vh;
+        min-height: 300px;
+        height: min-content;
       }
     }
   }

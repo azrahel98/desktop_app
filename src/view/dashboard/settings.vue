@@ -1,16 +1,34 @@
 <template>
-  <div class="mains">
-    <div class="info fw-medium">Configuraciones</div>
+  <div class="mains pt-3">
+    <div class="col">
+      <div class="page-pretitle fw-medium">Overview</div>
+      <h2 class="page-title">Configuracion</h2>
+    </div>
     <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card" style="width: 18rem">
-            <div class="card-body">
-              <h5 class="card-title">Estantes</h5>
+      <div class="row row-cards">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header p-2 d-flex justify-content-between">
+              <h4 class="card-title">Estantes</h4>
               <Armarios />
-              <h6 class="card-subtitle mb-2 text-body-secondary">agregar estantes</h6>
-              <div class="d-flex flex-column">
-                <span v-for="x in estantes">{{ x.nombre }}</span>
+            </div>
+            <div class="card-body row">
+              <div class="card card-sm col-md-12" v-for="x in estantes">
+                <div class="card-body">
+                  <div class="row align-items-center gap-2">
+                    <div class="col-auto">
+                      <span class="bg-primary text-white avatar avatar-sm">
+                        <IconLayoutList class="icon me-0 icon-sm" />
+                      </span>
+                    </div>
+                    <div class="col">
+                      <div class="font-weight-medium">{{ x.nombre }}</div>
+                      <div class="text-secondary text-break">
+                        {{ x.legajos }} legajos archivados
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -22,6 +40,7 @@
 
 <script setup lang="ts">
 import Armarios from '@com/settings/armarios.vue'
+import { IconLayoutList } from '@tabler/icons-vue'
 import { invoke } from '@tauri-apps/api/core'
 import { onMounted, ref } from 'vue'
 
@@ -52,74 +71,5 @@ onMounted(async () => {
   height: 100%;
   overflow-y: auto;
   padding-bottom: 1vh;
-
-  .info {
-    color: #707eae;
-    padding-top: 2vh;
-    font-family: 'DM Sans';
-    font-size: 1rem;
-  }
-  .search {
-    justify-self: center;
-    display: flex;
-    width: 20vw;
-    justify-content: center;
-    align-items: center;
-    .form-control {
-      font-size: 0.84rem !important;
-    }
-  }
-  .resultados {
-    overflow-y: scroll;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    grid-auto-flow: row;
-    column-gap: 2vh;
-    row-gap: 3vh;
-    justify-content: center;
-    height: 100%;
-    .card {
-      display: grid;
-      padding-top: 2vh;
-      justify-content: center;
-      align-items: center;
-      padding-bottom: 2vh;
-      grid-template-rows: min-content auto min-content;
-      justify-self: center;
-      justify-items: center;
-      row-gap: 1vh;
-      width: 100%;
-      height: max-content;
-      max-height: 40vh;
-      max-width: 180px;
-      img {
-        width: 8rcap;
-        justify-self: center;
-        text-align: center;
-        border-radius: 15px;
-      }
-      .avatar {
-        justify-self: center;
-        text-align: center;
-        object-fit: cover;
-        object-position: center;
-      }
-      .user {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-items: center;
-        text-wrap: wrap;
-        text-align: center;
-        font-size: 1.2rcap;
-        font-weight: 500;
-
-        .nombre {
-          font-size: 1.3rcap;
-          font-weight: 600;
-        }
-      }
-    }
-  }
 }
 </style>

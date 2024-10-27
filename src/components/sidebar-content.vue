@@ -1,130 +1,245 @@
 <template>
-  <div class="col-xl-3 col-xxl-2 mt-0 p-0">
-    <div class="sidebar">
-      <div class="s-1 flex-column">
-        <div class="title text-center">
-          <img src="../assets/logo.png" class="img-fluid pt-4" width="60" />
-        </div>
-        <hr class="solid pb-4" />
-
-        <router-link :to="{ name: 'dashboard' }" class="d-flex">
-          <IconHomeFilled size="22" class="text-secondary" />
-          <p class="text-secondary">Dashboard</p>
-        </router-link>
-
-        <router-link :to="{ name: 'settings' }" class="d-flex">
-          <IconSettings size="22" class="text-secondary" />
-          <p class="text-secondary">test</p>
-        </router-link>
-        <router-link :to="{ name: 'buscar' }" class="d-flex">
-          <IconSearch size="22" class="text-secondary" />
-          <p class="text-secondary">Buscar</p>
-        </router-link>
-        <router-link
-          v-if="router.currentRoute.value.name == 'perfil'"
-          :to="{ name: 'perfil', params: { dni: router.currentRoute.value.params.dni } }"
-          class="d-flex active"
-        >
-          <IconListDetails size="22" class="text-secondary" />
-          <p class="text-secondary">{{ router.currentRoute.value.name }}</p>
-        </router-link>
+  <aside class="sidebar-container" :class="{ 'sidebar-collapsed': !open }">
+    <div class="sidebar-content">
+      <!-- Logo -->
+      <div class="sidebar-logo">
+        <img src="../assets/logo.png" alt="Logo" class="logo-img" />
       </div>
 
-      <div class="user">
-        <div class="avatar avatar-md">
-          <img src="../assets/logo.png" class="img-fluid rounded-circle" />
-        </div>
-        <div class="d-flex flex-column">
-          <p style="font-size: 0.84rem">{{ user.nombre }}</p>
-          <p>Administrador</p>
-        </div>
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <router-link
+          v-for="item in menuItems"
+          :key="item.name"
+          :to="{ name: item.route }"
+          class="nav-link"
+          :class="{
+            active: isActiveRoute(item.route),
+            'nav-link-collapsed': !open
+          }"
+        >
+          <component :is="item.icon" :size="22" class="nav-icon" />
+          <span class="nav-text" v-show="open">{{ item.label }}</span>
+        </router-link>
+
+        <!-- Perfil Link (Conditional) -->
+        <router-link
+          v-if="router.currentRoute.value.name === 'perfil'"
+          :to="{
+            name: 'perfil',
+            params: { dni: router.currentRoute.value.params.dni }
+          }"
+          class="nav-link"
+          :class="{ active: isActiveRoute('perfil') }"
+        >
+          <IconListDetails :size="22" class="nav-icon" />
+          <span class="nav-text" v-show="open">
+            {{ router.currentRoute.value.name }}
+          </span>
+        </router-link>
+      </nav>
+    </div>
+
+    <!-- User Profile - Now fixed at bottom -->
+    <div class="sidebar-footer" :class="{ 'footer-collapsed': !open }">
+      <div class="avatar">
+        <img src="../assets/logo.png" alt="User avatar" class="avatar-img" />
+      </div>
+      <div class="user-info" v-if="open">
+        <p class="user-name">{{ user.nombre }}</p>
+        <p class="user-role">Administrador</p>
       </div>
     </div>
-  </div>
+  </aside>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { IconHomeFilled, IconListDetails, IconSearch, IconSettings } from '@tabler/icons-vue'
 import { router } from '../router'
 import { userStore } from '@store/user'
 
-const user = userStore()
-
-defineProps({
+const props = defineProps({
   open: { type: Boolean, required: true }
 })
-</script>
-<style lang="scss" scoped>
-.side {
-  width: 100%;
-}
 
-.sidebar {
-  display: grid;
-  grid-template-rows: auto min-content;
-  height: 100vh;
+const user = userStore()
+
+// Menu items configuration
+const menuItems = [
+  {
+    name: 'dashboard',
+    route: 'dashboard',
+    label: 'Dashboard',
+    icon: IconHomeFilled
+  },
+  {
+    name: 'settings',
+    route: 'settings',
+    label: 'Settings',
+    icon: IconSettings
+  },
+  {
+    name: 'buscar',
+    route: 'buscar',
+    label: 'Buscar',
+    icon: IconSearch
+  }
+]
+
+// Active route checker
+const isActiveRoute = (routeName: string): boolean => {
+  return router.currentRoute.value.name === routeName
+}
+</script>
+
+<style lang="scss" scoped>
+.sidebar-container {
   position: sticky;
   top: 0;
+  height: 100vh;
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  overflow: hidden; // Changed from overflow-x to prevent scrolling
+
+  &.sidebar-collapsed {
+    width: 80px;
+  }
+}
+
+.sidebar-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
-  width: 220px;
-  transition: max-width 2.5 linear !important;
+  /* Prevent content from going under footer */
+  padding-bottom: 80px; // Height of footer
+}
 
-  @media only screen and (max-width: 1200px) {
-    .side {
-      display: none !important;
-    }
+.sidebar-logo {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #ffffff;
+
+  .logo-img {
+    width: 40px;
+    height: auto;
+    transition: all 0.3s ease;
+  }
+}
+
+.sidebar-nav {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  color: #64748b;
+  text-decoration: none;
+  gap: 1rem;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  margin: 0 0.5rem;
+
+  &:hover {
+    background-color: #f8fafc;
+    color: #2563eb;
   }
 
-  .s-1 {
-    display: flex;
-    height: min-content;
-
-    h1 {
-      color: #2b3674;
-      text-align: center;
-      font-size: 2.3rem;
-      padding-top: 4vh;
-      padding-bottom: 3vh;
-      font-weight: bolder;
-      letter-spacing: 2px;
-    }
-
-    .d-flex {
-      //top,rigth,bottom,left
-      padding: 1vh 0 1vh 1.8vw;
-      margin: 0;
-      align-items: center;
-      height: min-content;
-      gap: 0.5vw;
-      border-radius: 5px;
-
-      p {
-        padding: 0;
-        margin: 0;
-        font-weight: 400;
-        font-size: 0.85rem;
-        text-align: center;
-        vertical-align: middle;
-      }
-    }
+  &.active {
+    background-color: #eff6ff;
+    color: #2563eb;
   }
 
-  .user {
-    display: flex;
+  &.nav-link-collapsed {
+    padding: 0.75rem;
     justify-content: center;
-    height: min-content;
-    gap: 0.5vw;
+  }
+}
 
-    p:first-of-type {
-      color: rgb(23, 46, 138);
-      font-weight: 700;
-      font-size: 16px;
-    }
+.nav-icon {
+  min-width: 22px;
+}
 
-    p:last-of-type {
-      font-weight: 400;
-      font-size: 0.74rem;
-      color: rgb(163, 174, 208);
+.nav-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sidebar-footer {
+  position: absolute; // Changed to absolute
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1px solid #f0f0f0;
+  background-color: #f8fafc;
+  height: 80px; // Fixed height
+  box-sizing: border-box;
+
+  &.footer-collapsed {
+    padding: 1rem;
+    justify-content: center;
+  }
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.user-info {
+  overflow: hidden;
+
+  .user-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .user-role {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 1200px) {
+  .sidebar-container {
+    position: fixed;
+    z-index: 1000;
+    transform: translateX(0);
+
+    &.sidebar-collapsed {
+      transform: translateX(-100%);
     }
   }
 }

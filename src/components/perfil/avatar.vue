@@ -18,7 +18,7 @@
           />
         </div>
       </div>
-      <div class="col-sm-1 col-md-2 col-lg-2 text-center">
+      <div class="col-sm-1 col-md-1 col-lg-2 text-center">
         <button
           class="btn btn-outline-primary btn-icon btn-md"
           data-bs-toggle="modal"
@@ -28,10 +28,10 @@
         </button>
         <ModalPerfil class="text-start" :perfil="perfil" />
       </div>
-      <div class="col-sm-12 col-md-8 col-lg-6 text-start">
+      <div class="col-sm-12 col-md-9 h-100 col-lg-6 text-start">
         <div class="card">
-          <div class="card-body pb-1 pt-3 d-flex flex-wrap">
-            <div class="mb-2" v-if="perfil.ruc">
+          <div class="card-body pb-1 pt-3 d-flex flex-column">
+            <div class="" v-if="perfil.ruc">
               <IconClipboardList class="icon me-2 text-secondary" />
               Ruc : <strong>{{ perfil.ruc }}</strong>
             </div>
@@ -49,7 +49,7 @@
             </div>
             <div class="" v-if="perfil.nacimiento">
               <IconCalendar class="icon text-secondary me-2" />
-              Cumpleaños: <strong>{{ perfil.nacimiento }}</strong>
+              Cumpleaños: <strong>{{ formatDate(perfil.nacimiento, 'dd MMM yyyy') }}</strong>
             </div>
             <div v-if="perfil.dni">
               <IconCreditCard class="icon text-secondary me-2" />
@@ -63,6 +63,7 @@
 </template>
 
 <script setup lang="ts">
+import { formatDate } from 'date-fns'
 import ModalPerfil from './modal.vue'
 import {
   IconHome,
@@ -87,9 +88,8 @@ defineProps({
   justify-items: center;
   max-width: 1000px;
   .row {
-    justify-items: center;
     justify-content: space-around;
-    align-items: start;
+
     .avatar {
       height: 100%;
       img {
@@ -98,9 +98,13 @@ defineProps({
       }
     }
     .card {
-      max-height: 20vh;
-
       overflow-y: auto;
+      height: max-content;
+      padding-bottom: 1.4vh;
+      .card-body {
+        justify-content: start;
+        align-content: start;
+      }
     }
   }
 }

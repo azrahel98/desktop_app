@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn btn-outline-primary p-0 m-0 px-3"
+    class="btn btn-lg btn-ghost-primary px-3"
     data-bs-toggle="modal"
     data-bs-target="#agregarestante"
   >

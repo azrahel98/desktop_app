@@ -115,7 +115,7 @@ const realizarBusqueda = async () => {
     .form-control {
       justify-self: center;
       font-size: 0.84rem !important;
-      max-width: 14vw;
+      max-width: 25vw;
     }
   }
   .resultados {
