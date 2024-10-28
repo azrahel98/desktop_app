@@ -19,11 +19,7 @@
         </div>
       </div>
       <div class="col-sm-1 col-md-1 col-lg-2 text-center">
-        <button
-          class="btn btn-outline-primary btn-icon btn-md"
-          data-bs-toggle="modal"
-          data-bs-target="#editProfileModal"
-        >
+        <button class="btn" data-bs-toggle="modal" data-bs-target="#editProfileModal">
           <IconEdit size="18" />
         </button>
         <ModalPerfil class="text-start" :perfil="perfil" />

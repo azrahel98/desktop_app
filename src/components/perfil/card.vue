@@ -67,10 +67,9 @@ const e = () => {
 .card {
   width: 100%;
   max-width: 230px;
-  min-height: 300px;
+  min-height: 250px;
   height: min-content;
   display: grid;
-  height: min-content;
   background-color: white;
   grid-template-rows: auto min-content;
   .card-body {

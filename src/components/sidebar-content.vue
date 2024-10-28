@@ -18,7 +18,7 @@
             'nav-link-collapsed': !open
           }"
         >
-          <component :is="item.icon" :size="22" class="nav-icon" />
+          <component :is="item.icon" :size="22" class="nav-icon text-secondary" />
           <span class="nav-text" v-show="open">{{ item.label }}</span>
         </router-link>
 
@@ -33,7 +33,7 @@
           :class="{ active: isActiveRoute('perfil') }"
         >
           <IconListDetails :size="22" class="nav-icon" />
-          <span class="nav-text" v-show="open">
+          <span class="nav-text text-primary" v-show="open">
             {{ router.currentRoute.value.name }}
           </span>
         </router-link>
@@ -54,12 +54,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { IconHomeFilled, IconListDetails, IconSearch, IconSettings } from '@tabler/icons-vue'
 import { router } from '../router'
 import { userStore } from '@store/user'
 
-const props = defineProps({
+defineProps({
   open: { type: Boolean, required: true }
 })
 
@@ -76,7 +75,7 @@ const menuItems = [
   {
     name: 'settings',
     route: 'settings',
-    label: 'Settings',
+    label: 'Configuracion',
     icon: IconSettings
   },
   {
@@ -98,16 +97,16 @@ const isActiveRoute = (routeName: string): boolean => {
   position: sticky;
   top: 0;
   height: 100vh;
-  width: 260px;
+  width: max-content;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   overflow: hidden; // Changed from overflow-x to prevent scrolling
 
   &.sidebar-collapsed {
-    width: 80px;
+    width: 5vw;
   }
 }
 
@@ -174,7 +173,7 @@ const isActiveRoute = (routeName: string): boolean => {
 }
 
 .nav-text {
-  font-size: 0.875rem;
+  font-size: 1.12rcap;
   font-weight: 600;
   white-space: nowrap;
 }

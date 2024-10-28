@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div class="">
     <sidebarContent :open="isOpen" class="d-none d-xl-block" />
 
     <Teleport to="body">
@@ -8,7 +8,7 @@
           v-if="isOpen"
           id="mobile-sidebar"
           class="position-fixed top-0 start-0 h-100 bg-white d-xl-none"
-          style="width: 220px; z-index: 1040"
+          style="width: min-content; z-index: 1040"
         >
           <sidebarContent :open="isOpen" class="d-block d-xl-none" />
         </div>
