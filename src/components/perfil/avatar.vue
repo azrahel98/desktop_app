@@ -49,7 +49,8 @@
             </div>
             <div class="" v-if="perfil.nacimiento">
               <IconCalendar class="icon text-secondary me-2" />
-              Cumpleaños: <strong>{{ formatDate(perfil.nacimiento, 'dd MMM yyyy') }}</strong>
+              Cumpleaños:
+              <strong>{{ formatDate(addDays(perfil.nacimiento, 1), 'dd MMM yyyy') }}</strong>
             </div>
             <div v-if="perfil.dni">
               <IconCreditCard class="icon text-secondary me-2" />
@@ -63,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import { formatDate } from 'date-fns'
+import { addDays, formatDate } from 'date-fns'
 import ModalPerfil from './modal.vue'
 import {
   IconHome,

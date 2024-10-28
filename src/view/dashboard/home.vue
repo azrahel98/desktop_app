@@ -38,7 +38,7 @@
       </div>
       <div class="cuerpo">
         <div v-for="_x in semana()" class="card bg-white" />
-        <div class="card dia fs-4 fw-bold" v-for="x in getDaysInMonth(ahora)">
+        <div class="card dia fs-4 fw-bold hoydia" v-for="x in getDaysInMonth(ahora)">
           <h4 class="m-0 p-0 py-1">{{ x }}</h4>
           <div class="d-flex flex-wrap gap-1 justify-content-center">
             <span
@@ -63,7 +63,7 @@
 <script setup lang="ts">
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-vue'
 import { invoke } from '@tauri-apps/api/core'
-import { addMonths, getDay, getDaysInMonth, subMonths, getYear, getMonth } from 'date-fns'
+import { addMonths, getDay, getDaysInMonth, subMonths, getYear, getMonth, isEqual } from 'date-fns'
 import { onMounted, ref, watch } from 'vue'
 const meses = [
   'Enero',
@@ -85,7 +85,7 @@ const notion_data = ref<Array<any>>([])
 const cumples = ref<Array<any>>([])
 
 onMounted(async () => {
-  await consulta()
+  // await consulta()
 })
 
 watch(ahora, async (_x, _y) => {
@@ -133,6 +133,7 @@ const semana = () => {
 
 <style lang="scss" scoped>
 .home {
+  height: 100vh;
   display: grid;
   grid-template-rows: min-content min-content auto;
   padding-top: 4vh;
@@ -155,52 +156,48 @@ const semana = () => {
   }
 
   .calendario {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    height: min-content;
-    background-color: white;
+    display: grid;
+    grid-template-rows: min-content min-content auto;
     padding: 0.4vh 1vw 1vh 1vw;
+    align-items: start;
+    height: 100%;
+    overflow: hidden;
     .semana,
     .cuerpo {
       display: grid;
-      justify-content: center;
-      align-items: center;
       row-gap: 0.25vh;
-      height: 100%;
+      align-items: start;
+      align-content: start;
+      vertical-align: middle;
       column-gap: 0.2vw;
       text-align: center;
       grid-template-columns: repeat(7, 1fr);
     }
 
     .semana {
-      padding-top: 2vh;
+      padding-top: 1.3vh;
       height: min-content;
     }
 
     .cuerpo {
-      height: min-content;
-      grid-template-rows: repeat(auto-fit, minmax(50px, 1fr));
-      grid-auto-flow: row;
+      height: 100%;
+      grid-auto-rows: 1fr;
+      overflow: auto;
 
       .card {
+        display: flex;
+        flex-direction: column;
         height: 100%;
         padding: 0.5em;
-        overflow-y: auto;
         border: 1px solid #ddd;
         border-radius: 10px;
         background-color: #f9f9f9;
-
         span {
           height: min-content;
           min-height: 2vh;
-          white-space: pre-line;
+          white-space: wrap;
           width: 100%;
         }
-      }
-
-      .card:hover {
-        overflow-y: auto;
       }
     }
   }

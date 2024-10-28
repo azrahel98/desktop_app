@@ -12,21 +12,6 @@
           :job="job"
           @submit="consulta(router.currentRoute.value.params.dni.toString())"
         />
-        <div class="card legajo w-100" style="max-height: 30vh; height: 100%">
-          <h2 class="card-title fw-bold p-3 text-center" v-if="ubicacion != null">
-            {{ ubicacion.nombre }}
-          </h2>
-          <h2 class="title fs-6 mb-0 text-center py-3" v-else>Agregar a Armario</h2>
-          <div class="d-flex justify-content-center" v-if="ubicacion == null">
-            <AddEStante @change="consulta(router.currentRoute.value.params.dni.toString())" />
-          </div>
-          <estante
-            :filas="ubicacion.filas"
-            :columnas="ubicacion.columnas"
-            :archivadores="archivadores"
-            v-else
-          />
-        </div>
       </div>
       <div />
     </div>
@@ -34,21 +19,18 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { router } from '../../router'
 import Card from '@com/perfil/card.vue'
 import { RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 import Avatar from '@com/perfil/avatar.vue'
 import { invoke } from '@tauri-apps/api/core'
-import AddEStante from '../../components/perfil/legajo/estanteadd.vue'
-import estante from '@com/perfil/legajo/estante.vue'
 
 const perfil = ref<any>({})
 const vinculos = ref<Array<any>>([])
-const historial = ref<Array<any>>([])
 
-const ubicacion = ref<any>(null)
-const archivadores = reactive(new Set())
+// const ubicacion = ref<any>(null)
+// const archivadores = reactive(new Set())
 
 onMounted(async () => await consulta(router.currentRoute.value.params.dni.toString()))
 
@@ -75,11 +57,11 @@ const consulta = async (x: string) => {
   }
 }
 
-const agregarArchivador = () => {
-  archivadores.clear()
-  const posicion = `${ubicacion.value.ufila},${ubicacion.value.ucolumna}`
-  archivadores.add(posicion)
-}
+// const agregarArchivador = () => {
+//   archivadores.clear()
+//   const posicion = `${ubicacion.value.ufila},${ubicacion.value.ucolumna}`
+//   archivadores.add(posicion)
+// }
 </script>
 <style lang="scss" scoped>
 .container {
@@ -122,7 +104,6 @@ const agregarArchivador = () => {
       column-gap: 10px;
       row-gap: 8px;
       overflow-y: auto;
-      height: min-content;
       .legajo {
         width: 100%;
         max-width: 230px;
