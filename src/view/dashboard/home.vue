@@ -63,7 +63,7 @@
 <script setup lang="ts">
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-vue'
 import { invoke } from '@tauri-apps/api/core'
-import { addMonths, getDay, getDaysInMonth, subMonths, getYear, getMonth, isEqual } from 'date-fns'
+import { addMonths, getDay, getDaysInMonth, subMonths } from 'date-fns'
 import { onMounted, ref, watch } from 'vue'
 const meses = [
   'Enero',
@@ -85,7 +85,7 @@ const notion_data = ref<Array<any>>([])
 const cumples = ref<Array<any>>([])
 
 onMounted(async () => {
-  // await consulta()
+  await consulta()
 })
 
 watch(ahora, async (_x, _y) => {
@@ -96,28 +96,7 @@ const consulta = async () => {
   try {
     notion_data.value = []
     cumples.value = []
-    const res: any = await invoke('fetch_notion', {
-      año: getYear(ahora.value).toString(),
-      mes: (getMonth(ahora.value) + 1).toString().padStart(2, '0'),
-      dia: getDaysInMonth(ahora.value).toString()
-    })
 
-    JSON.parse(res).results.forEach(
-      (e: {
-        id: string
-        properties: {
-          Descripcion: { title: { text: { content: any } }[] }
-          Fecha: { date: { start: any } }
-        }
-      }) => {
-        notion_data.value?.push({
-          descripcion: e.properties.Descripcion.title[0].text.content,
-          fecha: parseInt(e.properties.Fecha.date.start.toString().split('-')[2]),
-          id: e.id,
-          database: false
-        })
-      }
-    )
     cumples.value = await invoke('cumpleaños_lista', { mes: ahora.value.getMonth() + 1 })
   } catch (error) {
     console.log(error)

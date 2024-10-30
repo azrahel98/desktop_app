@@ -54,12 +54,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { IconHomeFilled, IconListDetails, IconSearch, IconSettings } from '@tabler/icons-vue'
 import { router } from '../router'
 import { userStore } from '@store/user'
 
-const props = defineProps({
+defineProps({
   open: { type: Boolean, required: true }
 })
 
@@ -83,6 +82,12 @@ const menuItems = [
     name: 'buscar',
     route: 'buscar',
     label: 'Buscar',
+    icon: IconSearch
+  },
+  {
+    name: 'organigrama',
+    route: 'organigrama',
+    label: 'organigrama',
     icon: IconSearch
   }
 ]

@@ -1,0 +1,38 @@
+1 Alcaldia
+    1.1 Organo de Control Institucional
+    1.2 Procuraduria Municipal
+    1.3 Oficina de Secretaria General
+        1.3.1 Unidad de Gestion Documentaria
+        1.3.2 Area de Registro Civil
+    1.4 Unidad de Imagen Institucional
+    1.5 Gerencia Municipal
+        1.5.1 Oficina General de Administracion
+            1.5.1.1 Unidad de Gestion de Recursos Humanos
+            1.5.1.2 Unidad de Contabilidad
+            1.5.1.3 Unidad de Tesoreria
+            1.5.1.4 Unidad de Abastecimiento
+            1.5.1.5 Unidad de Desarrollo Tecnologico
+        1.5.2 Oficina de Asesoria Juridica
+        1.5.3 Oficina de Planeamiento y Presupuesto
+            1.5.3.1 Unidad de Planeamiento Estrategico, Modernizacion y Programacion de Inversiones
+        1.5.4 Gerencia de Rentas y Administracion Tributaria
+            1.5.4.1 Subgerencia de Recaudacion,Control y Ejecutoria Coactiva.
+            1.5.4.2 Subgerencia de Fiscalizacion Tributaria
+        1.5.5 Gerencia de Desarrollo Economico y Licencias
+        1.5.6 Gerencia de Desarrollo Urbano
+            1.5.6.1 Subgerencia de Proyectos y Obras Publicas
+            1.5.6.2 Subgerencia de Obras Privadas y Control Urbano
+        1.5.7 Gerencia de Desarrollo e Inclunsion Social
+            1.5.7.1 Subgerencia de Educacion,Cultura,Deporte y Juventud.
+            1.5.7.2 Subgerencia de Saludad,Sanidad y Bienestar Social
+            1.5.7.3 Subgerencia de Programas Sociales
+            1.5.7.4 Subgerencia de Participacion Ciudadana
+            1.5.7.5 Area de la Mujer e Igualdad de Genero
+        1.5.8 Subgerencia de Servicios a la Ciudad y Gestion Ambiental
+            1.5.8.1 Subgerencia de Limpieza Publica y Maestranza
+            1.5.8.2 Subgerencia de Parques, Jardines,Informacion y Evaluacion Ambiental.
+        1.5.9 Subgerencia de Seguridad Ciudadana y Vial
+            1.5.9.1 Subgerencia de Serenazgo
+            1.5.9.2 Subgerencia de Transporte y Seguridad Vial
+            1.5.9.3 Subgerencia de Fiscalizacion Administrativa
+            1.5.9.4 Subgerencia de Gestion del Riesgo de Desastre

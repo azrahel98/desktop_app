@@ -15,6 +15,7 @@ import Home from './view/dashboard/home.vue'
 import Buscar from './view/dashboard/buscar.vue'
 import Settings from './view/dashboard/settings.vue'
 import Perfil from './view/dashboard/perfil.vue'
+import organigrama from './view/dashboard/organigrama.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -42,6 +43,11 @@ const routes: RouteRecordRaw[] = [
         path: '/perfil/:dni',
         name: 'perfil',
         component: Perfil
+      },
+      {
+        path: '/organigrama',
+        name: 'organigrama',
+        component: organigrama
       }
     ]
   },
