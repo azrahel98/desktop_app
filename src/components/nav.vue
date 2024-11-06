@@ -27,7 +27,7 @@ defineProps({
   padding: 0;
   margin: 0;
   justify-content: space-between;
-  padding-top: 10px;
+  padding-top: 12px;
   .card {
     margin: 0;
     margin-right: 2vw;
